@@ -7,7 +7,7 @@ namespace Tanks
     public class FireComponent : MonoBehaviour
     {
         private bool _canFire = true;
-        [SerializeField, Range(0.1f, 1f)] private float _delayFire = 0.25f;
+        [SerializeField, Range(0.1f, 3f)] private float _delayFire = 0.25f;
         [SerializeField] private Projectile _prefab;
         [SerializeField] private SideType _side;
 

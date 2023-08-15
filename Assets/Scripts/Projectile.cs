@@ -31,7 +31,7 @@ namespace Tanks
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var fire = collision.GetComponent<FireComponent>();
+             var fire = collision.GetComponent<FireComponent>();
             if(fire != null)
             {
                 if (fire.GetSide == _side) return;
