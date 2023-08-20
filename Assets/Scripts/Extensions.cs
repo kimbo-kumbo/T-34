@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -23,7 +22,7 @@ namespace Tanks
             _rotations = new Dictionary<DirectionTye, Vector3>
             {
                 { DirectionTye.Up, new Vector3 (0f, 0f, 0f) },
-                { DirectionTye.Right, new Vector3 (1f, 0f, 270f) },
+                { DirectionTye.Right, new Vector3 (0f, 0f, 270f) },
                 { DirectionTye.Down, new Vector3 (0f, 0f, 180f) },
                 { DirectionTye.Left, new Vector3 (0f, 0f, 90f) },
             };
@@ -55,8 +54,4 @@ namespace Tanks
     {
         None, Player, Enemy
     }
-
 }
-
-
-

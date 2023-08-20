@@ -1,19 +1,22 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Tanks
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class PlayerConditionComponent : ConditionComponent
-    {
+    {       
         private bool _immortal;
         private Vector3 _startPoint;
         private SpriteRenderer _renderer;
         [SerializeField] private float _immortalTime = 3f;
         [SerializeField] private float _immortalSwitchVisual = 0.2f;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+            _health = GameConfiguration.LivePlayer;
             _startPoint = transform.position;
             _renderer = GetComponent<SpriteRenderer>();
         }
@@ -22,13 +25,15 @@ namespace Tanks
             if (_immortal) return;
 
             _health -= damage;
+            _eventManager.PostNotification(EventType.Explosion);
             transform.position = _startPoint;
             StartCoroutine(OnImmortal());
             if (_health <= 0)
-            {
-                Destroy(gameObject);
+            {                
+                gameObject.SetActive(false);
+                _eventManager.PostNotification(EventType.Gameover);
             }
-        }
+        }             
 
         private IEnumerator OnImmortal()
         {
@@ -37,7 +42,7 @@ namespace Tanks
             while (time > 0f)
             {
                 _renderer.enabled = !_renderer.enabled;
-                time -= Time.deltaTime;
+                time -= _immortalSwitchVisual;                
                 yield return new WaitForSeconds(_immortalSwitchVisual);
             }
             _immortal = false;
